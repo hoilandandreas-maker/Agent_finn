@@ -1,0 +1,10 @@
+# Kjøretid (testet med versjonene i parentes)
+anthropic>=0.40         # (testet: 0.105.2) Claude API + vision
+python-dotenv>=1.0      # (testet: 1.2.2)   laster .env
+httpx>=0.27             # (testet: 0.28.1)  HTTP for scraper
+beautifulsoup4>=4.12    # (testet: 4.14.3)  HTML-parsing
+Pillow>=10.0            # (testet: 12.2.0)  bildeforbehandling
+playwright>=1.40        # browser-automasjon (krever: python -m playwright install chromium)
+
+# Test
+pytest>=8.0             # (testet: 9.0.3)
