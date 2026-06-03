@@ -26,11 +26,13 @@ Bilde (+ ev. info)
 
 ```
 .
+├── app.py                   # lokal web-UI (Gradio) – dra-og-slipp
 ├── main.py                  # CLI – én kommando per steg
 ├── agent/
 │   ├── config.py            # laster .env, modell-/bilde-/scraper-konstanter
 │   ├── llm_utils.py         # Claude-klient + robust JSON-parsing + retry
 │   ├── image_utils.py       # Pillow: orientering, nedskalering, riktig media_type
+│   ├── annonse_format.py    # Markdown-formattering for UI
 │   ├── vision.py            # steg 1: bilde → tilstand/kategori-JSON
 │   ├── prisjeger.py         # steg 2: Finn-søk → prisstatistikk
 │   ├── annonsegenerator.py  # steg 3: vision + pris → ferdig annonse
@@ -57,9 +59,26 @@ cp .env.example .env                       # legg inn ANTHROPIC_API_KEY i .env
 Modellen styres av `ANTHROPIC_MODEL` (standard: `claude-sonnet-4-20250514`) og
 kan overstyres i `.env` uten å endre kode.
 
-## Bruk
+## Web-UI (anbefalt)
 
-Hvert steg har sin egen kommando, så du kan verifisere ett om gangen. JSON
+Den enkleste måten å bruke agenten på er det lokale web-grensesnittet:
+
+```bash
+python app.py        # åpner http://127.0.0.1:7860 i nettleseren
+```
+
+Dra inn bilde(r), skriv ev. ekstra info, og klikk **«Analyser & generer annonse»**.
+Du får tilstand, prisreferanser og et ferdig annonseforslag du kan redigere rett i
+feltene. Når du er fornøyd, klikker du **«Åpne Finn og forhåndsutfyll»** – da åpnes
+en ekte nettleser (egen prosess) der du logger inn og klikker Publiser selv.
+
+> Kjøres **lokalt** på din egen maskin: API-nøkkelen blir liggende lokalt, og
+> publiseringssteget trenger en synlig nettleser. (Kan ikke hostes på f.eks.
+> GitHub Pages, som kun serverer statiske filer.)
+
+## CLI
+
+Hvert steg har også sin egen kommando, så du kan verifisere ett om gangen. JSON
 skrives til stdout; statuslinjer går til stderr (lett å pipe videre).
 
 ```bash
