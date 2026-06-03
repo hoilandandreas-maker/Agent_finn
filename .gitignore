@@ -1,0 +1,22 @@
+# Hemmeligheter
+.env
+
+# Playwright innlogging/cookies – må ALDRI committes
+finn_profil/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# Diverse
+.DS_Store
+/scratch/
